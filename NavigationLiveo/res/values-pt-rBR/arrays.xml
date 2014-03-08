@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="nav_menu_items">
+        <item>Categoria</item>
+        <item>Download</item>
+        <item>Rota</item>
+        <item>Excluir</item>
+        <item>Atualizar</item>
+        <item>Concluído</item>
+        <item>Categoria</item>
+        <item>Configurações</item>
+        <item>Adicionar</item>
+        <item>Descartar</item>
+        <item>Categoria</item>
+        <item>Maps</item>
+        <item>Compartilhar</item>
+    </string-array>       
+</resources>

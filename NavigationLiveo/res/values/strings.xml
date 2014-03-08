@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Navigation -->    
+    <string name="header">User</string>    
+        
+    <string name="app_name">Navigation Live-O</string>
+    <string name="clear"></string>
+    <string name="add">Add</string>
+    <string name="delete">Delete</string>
+    <string name="done">Done</string>
+    <string name="discard">Discard</string>
+    <string name="search">Search</string>
+    <string name="update">Update</string>
+        
+    <string name="drawer_open">Open drawer navigation</string>
+    <string name="drawer_close">Navigation drawer Close</string>   
+</resources >

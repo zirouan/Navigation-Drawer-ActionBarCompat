@@ -1,0 +1,66 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" 
+    android:background="@color/gray_navegation">
+    
+	<android.support.v4.widget.DrawerLayout
+	    xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:id="@+id/layoutDrawer"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent">
+	    		    
+    	<FrameLayout
+    	    android:id="@+id/content_frame"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="match_parent" >
+    	</FrameLayout>
+		    
+	    <LinearLayout
+	        android:id="@+id/linearDrawer"
+	        android:layout_width="260dp"
+	        android:layout_height="match_parent"	        
+	        android:orientation="vertical"
+	        android:background="@color/navigation_items"
+	        android:layout_gravity="start" >
+	 
+		    <RelativeLayout
+				android:id="@+id/userDrawer"
+		        android:layout_width="260dp"
+		        android:layout_height="48dp"
+		       	android:background="@color/navigation_items">
+		
+		        <ImageView
+		            android:id="@+id/ImgDrawer"
+		            android:layout_width="30dp"
+		            android:layout_height="30dp"
+		            android:contentDescription="@string/clear"
+		            android:layout_alignParentLeft="true"
+		            android:layout_centerVertical="true"
+		            android:layout_marginLeft="14dp"
+		            android:src="@drawable/ic_action_about" />        
+		                
+		        <TextView
+		            android:id="@+id/tituloDrawer"
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:layout_marginLeft="10dp"            
+		            android:layout_centerVertical="true"
+		            android:layout_toRightOf="@+id/ImgDrawer"
+		            android:textColor="@color/white"            
+		            android:layout_marginRight="5dp"
+		            android:text="@string/header" />	        
+		    </RelativeLayout>
+	 
+		    <ListView
+		        android:id="@+id/listDrawer"
+		        android:layout_width="260dp"
+		        android:layout_height="match_parent"
+		        android:layout_gravity="start"
+		        android:background="@color/navigation_items"
+		        android:cacheColorHint="@color/transparent"
+		        android:choiceMode="singleChoice"	        
+		        android:divider="@android:color/transparent"
+		        android:dividerHeight="1dp" />	    
+	    </LinearLayout>    		    		    	
+	</android.support.v4.widget.DrawerLayout>					
+</RelativeLayout>
