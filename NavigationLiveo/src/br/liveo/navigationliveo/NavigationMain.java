@@ -36,9 +36,6 @@ public class NavigationMain extends ActionBarActivity{
 	private NavigationAdapter navigationAdapter;
 	private ActionBarDrawerToggleCompat drawerToggle;	
 	
-	private FragmentDownload fragmentDownload;
-	private FragmentRoute fragmentRoute;	
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);		
@@ -70,7 +67,11 @@ public class NavigationMain extends ActionBarActivity{
 		
 		if (savedInstanceState != null) { 			
 			setLastPosition(savedInstanceState.getInt(Constant.LAST_POSITION)); 				
-			getInstanceFragments(savedInstanceState, lastPosition);			
+
+			navigationAdapter.resetarCheck();
+			setTitleFragments(lastPosition);		
+			navigationAdapter.setChecked(lastPosition, true);				
+			
 	    }else{
 	    	setLastPosition(lastPosition); 
 	    	setFragmentList(lastPosition);
@@ -81,8 +82,7 @@ public class NavigationMain extends ActionBarActivity{
 	protected void onSaveInstanceState(Bundle outState) {
 		// TODO Auto-generated method stub		
 		super.onSaveInstanceState(outState);		
-		outState.putInt(Constant.LAST_POSITION, lastPosition);			
-		setInstanceFragments(outState, lastPosition);		
+		outState.putInt(Constant.LAST_POSITION, lastPosition);					
 	}
 	
 	@Override
@@ -192,18 +192,16 @@ public class NavigationMain extends ActionBarActivity{
 		
 		switch (posicao) {
 		case 1:			
-			fragmentManager.beginTransaction().replace(R.id.content_frame, fragmentDownload = new FragmentDownload()).commit();
+			fragmentManager.beginTransaction().replace(R.id.content_frame, new FragmentDownload()).commit();
 			break;			
 		case 2:			
-			fragmentManager.beginTransaction().replace(R.id.content_frame, fragmentRoute = new FragmentRoute()).commit();						
+			fragmentManager.beginTransaction().replace(R.id.content_frame, new FragmentRoute()).commit();						
 			break;	
-			
-			//implement other fragments here	
 		}
 			
 		navigationAdapter.resetarCheck();	
 		setTitleFragments(lastPosition);		
-		navigationAdapter.setChecked(posicao, true);		
+		navigationAdapter.setChecked(posicao, true);	
 	}
 
     private void hideMenus(Menu menu, int posicao) {
@@ -220,44 +218,10 @@ public class NavigationMain extends ActionBarActivity{
 		case 2:
 	        menu.findItem(Menus.ADD).setVisible(!drawerOpen);	        	        	       
 	        menu.findItem(Menus.SEARCH).setVisible(!drawerOpen);        			
-			break;	
-			
-			//implement other fragments here			
+			break;			
 		}  
         
     }	
-    private void setInstanceFragments(Bundle savedInstanceState, int posicao) {
-    	
-		FragmentManager manager = getSupportFragmentManager();    	
-    	switch (posicao) {
-		case 1:
-			manager.putFragment(savedInstanceState, Constant.FRAGMENT_DOWNLOAD, fragmentDownload);			
-			break;
-		case 2:			
-			manager.putFragment(savedInstanceState, Constant.FRAGMENT_ROUTE, fragmentRoute);			
-			break;				
-			//implement other fragments here			
-		}    	
-    }
-
-    private void getInstanceFragments(Bundle savedInstanceState, int posicao) {
-    	
-		FragmentManager manager = getSupportFragmentManager();		
-    	switch (posicao) {
-		case 1:
-			fragmentDownload = (FragmentDownload) manager.getFragment(savedInstanceState, Constant.FRAGMENT_DOWNLOAD);						
-			break;			
-		case 2:				
-			fragmentRoute = (FragmentRoute) manager.getFragment(savedInstanceState, Constant.FRAGMENT_ROUTE);			
-			break;		
-			
-			//implement other fragments here			
-		}    	
-    				    	    	
-		navigationAdapter.resetarCheck();
-		setTitleFragments(lastPosition);		
-		navigationAdapter.setChecked(posicao, true);				
-    }
 
 	private void setTitleFragments(int position){	
 		setIconActionBar(Utils.iconNavigation[position]);
