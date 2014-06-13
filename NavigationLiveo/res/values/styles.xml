@@ -35,5 +35,15 @@
     <style name="Liveo.SubTitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle">
         <item name="android:textColor">@color/white</item>
         <item name="android:textStyle">normal</item>
-    </style>             
+    </style>      
+    
+	<!-- Style user drawer -->
+    <style name="textView_title_list" parent="android:Widget.TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/bg_black_transparent</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:layout_gravity">bottom</item>
+    </style>         
 </resources>

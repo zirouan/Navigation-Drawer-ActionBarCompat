@@ -23,7 +23,7 @@ import br.liveo.utils.Menus;
 import br.liveo.utils.Utils;
 
 public class NavigationMain extends ActionBarActivity{
-		
+			
     private int lastPosition = 1;
 	private ListView listDrawer;    
 		
@@ -35,7 +35,7 @@ public class NavigationMain extends ActionBarActivity{
 
 	private NavigationAdapter navigationAdapter;
 	private ActionBarDrawerToggleCompat drawerToggle;	
-	
+		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);		
@@ -66,8 +66,8 @@ public class NavigationMain extends ActionBarActivity{
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		if (savedInstanceState != null) { 			
-			setLastPosition(savedInstanceState.getInt(Constant.LAST_POSITION)); 				
-
+			setLastPosition(savedInstanceState.getInt(Constant.LAST_POSITION));
+			
 			navigationAdapter.resetarCheck();
 			setTitleFragments(lastPosition);		
 			navigationAdapter.setChecked(lastPosition, true);				
@@ -197,11 +197,13 @@ public class NavigationMain extends ActionBarActivity{
 		case 2:			
 			fragmentManager.beginTransaction().replace(R.id.content_frame, new FragmentRoute()).commit();						
 			break;	
+			
+			//implement other fragments here	
 		}
 			
 		navigationAdapter.resetarCheck();	
 		setTitleFragments(lastPosition);		
-		navigationAdapter.setChecked(posicao, true);	
+		navigationAdapter.setChecked(posicao, true);		
 	}
 
     private void hideMenus(Menu menu, int posicao) {
@@ -218,7 +220,9 @@ public class NavigationMain extends ActionBarActivity{
 		case 2:
 	        menu.findItem(Menus.ADD).setVisible(!drawerOpen);	        	        	       
 	        menu.findItem(Menus.SEARCH).setVisible(!drawerOpen);        			
-			break;			
+			break;	
+			
+			//implement other fragments here			
 		}  
         
     }	
@@ -234,5 +238,5 @@ public class NavigationMain extends ActionBarActivity{
 
 	public void setCounterItemDownloads(int value) {
 		this.counterItemDownloads = value;
-	}		
+	}
 }

@@ -17,7 +17,7 @@ import br.liveo.navigationliveo.R;
 import br.liveo.utils.Menus;
 
 public class FragmentRoute extends Fragment {
-	
+
 	private TextView txtFragmentRoute;
 	private boolean searchCheck;
 	@Override
@@ -25,7 +25,7 @@ public class FragmentRoute extends Fragment {
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub		
 		View rootView = inflater.inflate(R.layout.fragmentroute, container, false);		
-		
+						
 		txtFragmentRoute = (TextView) rootView.findViewById(R.id.txtFragmentRoute);
 		txtFragmentRoute.setText("This is the route fragments");
 		
@@ -37,7 +37,7 @@ public class FragmentRoute extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
-		setHasOptionsMenu(true);
+		setHasOptionsMenu(true);										
 	}
 	
 	@Override
@@ -95,5 +95,5 @@ public class FragmentRoute extends Fragment {
 			}
 			return false;
 		}
-	};
+	};	
 }

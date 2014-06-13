@@ -95,5 +95,5 @@ public class FragmentDownload extends Fragment {
 			}
 			return false;
 		}
-	};
+	};					
 }
