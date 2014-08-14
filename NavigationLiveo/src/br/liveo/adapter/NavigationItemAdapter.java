@@ -6,8 +6,10 @@ public class NavigationItemAdapter {
 	public int counter;
 	public int icon;
 	public boolean isHeader;	
+	public boolean isVisible = true;
+	public boolean checked = !isVisible;	
 
-	public NavigationItemAdapter(String title, int icon, boolean header,int counter) {
+	public NavigationItemAdapter(String title, int icon, boolean header,int counter, boolean visible) {
 		this.title = title;
 		this.icon = icon;
 		this.isHeader = header;
@@ -15,7 +17,7 @@ public class NavigationItemAdapter {
 	}
 	
 	public NavigationItemAdapter(String title, int icon, boolean header){
-		this(title, icon, header, 0 );
+		this(title, icon, header, 0, true );
 	}
 	
 	public NavigationItemAdapter(String title, int icon) {

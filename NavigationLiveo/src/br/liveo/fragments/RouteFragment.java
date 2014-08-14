@@ -14,20 +14,30 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
 import android.widget.TextView;
 import br.liveo.navigationliveo.R;
+import br.liveo.utils.Constant;
 import br.liveo.utils.Menus;
 
-public class FragmentRoute extends Fragment {
-
-	private TextView txtFragmentRoute;
-	private boolean searchCheck;
+public class RouteFragment extends Fragment {
+	
+	private TextView mTxtRoute;
+	private boolean mSearchCheck;
+	
+	public RouteFragment newInstance(String text){
+		RouteFragment mFragment = new RouteFragment();		
+		Bundle mBundle = new Bundle();
+		mBundle.putString(Constant.TEXT_FRAGMENT, text);
+		mFragment.setArguments(mBundle);
+		return mFragment;
+	}
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub		
-		View rootView = inflater.inflate(R.layout.fragmentroute, container, false);		
+		View rootView = inflater.inflate(R.layout.route_fragment, container, false);		
 						
-		txtFragmentRoute = (TextView) rootView.findViewById(R.id.txtFragmentRoute);
-		txtFragmentRoute.setText("This is the route fragments");
+		mTxtRoute = (TextView) rootView.findViewById(R.id.txtRoute);
+		mTxtRoute.setText(getArguments().getString(Constant.TEXT_FRAGMENT));
 		
 		rootView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT ));		
 		return rootView;		
@@ -57,7 +67,7 @@ public class FragmentRoute extends Fragment {
 		menu.findItem(Menus.UPDATE).setVisible(false);		
 		menu.findItem(Menus.SEARCH).setVisible(true);		
   	    
-		searchCheck = false;	
+		mSearchCheck = false;	
 	}	
 	
 	@Override
@@ -73,7 +83,7 @@ public class FragmentRoute extends Fragment {
 			break;				
 			
 		case Menus.SEARCH:
-			searchCheck = true;
+			mSearchCheck = true;
 			break;
 		}		
 		return true;
@@ -90,7 +100,7 @@ public class FragmentRoute extends Fragment {
 		@Override
 		public boolean onQueryTextChange(String arg0) {
 			// TODO Auto-generated method stub
-			if (searchCheck){
+			if (mSearchCheck){
 				// implement your search here
 			}
 			return false;

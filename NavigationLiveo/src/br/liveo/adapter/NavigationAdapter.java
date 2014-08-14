@@ -1,39 +1,46 @@
 package br.liveo.adapter;
 
-import java.util.HashSet;
+import java.util.List;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import br.liveo.navigationliveo.NavigationMain;
 import br.liveo.navigationliveo.R;
+import br.liveo.utils.Constant;
 
-public class NavigationAdapter extends ArrayAdapter<NavigationItemAdapter> {
-
-	private ViewHolder holder;	
-	private HashSet<Integer> checkedItems;
-	public NavigationAdapter(Context context) {
-		super(context, 0);
-		this.checkedItems = new HashSet<Integer>();		
+public class NavigationAdapter extends BaseAdapter {
+		
+	private final Context mcontext;
+	
+	public int mMapsCounter = 0;	
+	public int mDownloadsCounter = 0;		
+	private final List<NavigationItemAdapter> mList;	
+	
+	public NavigationAdapter(Context context,List<NavigationItemAdapter> list) {
+		this.mList = list;		
+		this.mcontext = context;
 	}
 
-	public void addHeader(String title) {
-		add(new NavigationItemAdapter(title, 0, true));
+	@Override
+	public int getCount() {
+		return mList.size();
 	}
 
-	public void addItem(String title, int icon) {
-		add(new NavigationItemAdapter(title, icon, false));
+	@Override
+	public NavigationItemAdapter getItem(int position) {
+		return mList.get(position);
 	}
 
-	public void addItem(NavigationItemAdapter itemModel) {
-		add(itemModel);
+	@Override
+	public long getItemId(int position) {
+		return position;
 	}
-
+	
 	@Override
 	public int getViewTypeCount() {
 		return 2;
@@ -49,106 +56,98 @@ public class NavigationAdapter extends ArrayAdapter<NavigationItemAdapter> {
 		return !getItem(position).isHeader;
 	}
 
-	public void setChecked(int pos, boolean checked)
-    {
-        if (checked) {
-            this.checkedItems.add(Integer.valueOf(pos));
-        } else {
-            this.checkedItems.remove(Integer.valueOf(pos));
-        }    
-        
-        this.notifyDataSetChanged();        
-    }
+	public void setChecked(int pos, boolean checked) {
+		mList.get(pos).checked = checked;
+		notifyDataSetChanged();			
+	}
 
-	public void resetarCheck()
-    {
-        this.checkedItems.clear();
-        this.notifyDataSetChanged();
-    }	
+	public void resetarCheck() {
+		for (int i = 0; i < mList.size(); i++) {
+			mList.get(i).checked = false;
+		}
+		this.notifyDataSetChanged();
+	}
 	
-	public static class ViewHolder {
-		public final ImageView icon;		
-		public final TextView title;
-		public final TextView counter;		
-		public final LinearLayout colorLinear;
-		public final View viewNavigation;
+	
+	public void setDownloadsCounter(int count){
+		mDownloadsCounter = count;
+		mList.get(Constant.MENU_DOWNLOADS).counter = mDownloadsCounter;
+		notifyDataSetChanged();
+	}
 
-		public ViewHolder(TextView title, TextView counter, ImageView icon, LinearLayout colorLinear, View viewNavigation) {
-			this.title = title;
-			this.counter = counter;
-			this.icon = icon;			
-			this.colorLinear = colorLinear;
-			this.viewNavigation = viewNavigation;
+	public void setMapsCounter(int count){
+		mMapsCounter = count;
+		mList.get(Constant.MENU_MAPS).counter = mMapsCounter;
+		notifyDataSetChanged();
+	}	
+	
+	class ViewHolder {
+		public TextView title;
+		public TextView counter;
+		public ImageView icon;		
+		public LinearLayout colorLinear;
+		public View viewNavigation;
+
+		public ViewHolder(){			
 		}
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
 
-		holder = null;		
-		View view = convertView;
-		NavigationItemAdapter item = getItem(position);
+		NavigationItemAdapter  item = mList.get(position);
+		ViewHolder holder = null;
 		
-		if (view == null) {
-
-			int layout = 0;
-			layout = R.layout.navigation_item_counter;			
-			if (item.isHeader){
-				layout = R.layout.navigation_header_title;
-			}
-
-			view = LayoutInflater.from(getContext()).inflate(layout, null);
-
-			TextView txttitle = (TextView) view.findViewById(R.id.title);
-			TextView txtcounter = (TextView) view.findViewById(R.id.counter);
-			ImageView imgIcon = (ImageView) view.findViewById(R.id.icon);
-			View viewNavigation = (View) view.findViewById(R.id.viewNavigation);
+		if (convertView == null) {
+			holder = new ViewHolder();
 			
-			LinearLayout linearColor = (LinearLayout) view.findViewById(R.id.ns_menu_row);
-			view.setTag(new ViewHolder(txttitle, txtcounter, imgIcon, linearColor, viewNavigation));
+			int layout = ((item.isHeader) ? R.layout.navigation_header_title
+					                      : R.layout.navigation_item_counter);
+			
+			convertView = LayoutInflater.from(mcontext).inflate(layout, null);			
+			
+			holder.title = (TextView) convertView.findViewById(R.id.title);
+			holder.counter = (TextView) convertView.findViewById(R.id.counter);
+			holder.icon = (ImageView) convertView.findViewById(R.id.icon);
+			holder.viewNavigation = (View) convertView.findViewById(R.id.viewNavigation);
+			
+			holder.colorLinear = (LinearLayout) convertView.findViewById(R.id.ns_menu_row);
+			convertView.setTag(holder);
+		}else{
+			holder = (ViewHolder) convertView.getTag();
+		}
+
+		if (holder.title != null){
+			holder.title.setText(item.title);			
+		}
+
+		if (holder.counter != null) {
+			if (item.counter >= 0) {
+				holder.counter.setVisibility(View.VISIBLE);
+				holder.counter.setText(item.counter + "");
+			} else {
+				holder.counter.setVisibility(View.GONE);
+			}
 		}
 		
-		if (holder == null && view != null) {
-			Object tag = view.getTag();
-			if (tag instanceof ViewHolder) {
-				holder = (ViewHolder) tag;
+		if (holder.icon != null) {
+			if (item.icon != 0) {
+				holder.icon.setVisibility(View.VISIBLE);
+				holder.icon.setImageResource(item.icon);
+			} else {
+				holder.icon.setVisibility(View.GONE);
 			}
 		}
-				
-		if (item != null && holder != null) {
-			if (holder.title != null)
-				holder.title.setText(item.title);
-
-			if (holder.counter != null) {
-				if (item.counter > 0) {
-					holder.counter.setVisibility(View.VISIBLE);
-					
-					int counter = ((NavigationMain)getContext()).getCounterItemDownloads();
-					holder.counter.setText("" + counter);
-				} else {
-					holder.counter.setVisibility(View.GONE);
-				}
-			}
-
-			if (holder.icon != null) {
-				if (item.icon != 0) {
-					holder.icon.setVisibility(View.VISIBLE);
-					holder.icon.setImageResource(item.icon);
-				} else {
-					holder.icon.setVisibility(View.GONE);
-				}
-			}
-		}
-	    
-		if (!item.isHeader) {
-			if (checkedItems.contains(Integer.valueOf(position))) {
+	
+		if (!item.isHeader) {			
+			if (item.checked) {
 				holder.viewNavigation.setVisibility(View.VISIBLE);
-			} else {				
-				holder.viewNavigation.setVisibility(View.GONE);				
-			}
-			view.setBackgroundResource(R.drawable.seletor_item_navigation);			
+			} else {
+				holder.viewNavigation.setVisibility(View.GONE);
+			}			
+			convertView.setBackgroundResource(R.drawable.seletor_item_navigation);			
 		}
-		
-	    return view;		
+					
+	    return convertView;		
 	}
 
 }

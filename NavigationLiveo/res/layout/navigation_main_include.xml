@@ -1,0 +1,85 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/gray_navegation" >
+
+    <LinearLayout
+        android:id="@+id/linearDrawer"
+        android:layout_width="260dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/navigation_items"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/userContent"
+            android:layout_width="260dp"
+            android:layout_height="150dp"
+            android:background="@color/black"
+            android:gravity="center_vertical"
+            android:paddingRight="10dp" >
+
+            <RelativeLayout
+                android:id="@+id/userDrawer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/transparent" >
+
+                <ImageView
+                    android:id="@+id/ImgDrawer"
+                    android:layout_width="260dp"
+                    android:layout_height="200dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_user" />
+
+                <RelativeLayout
+                    style="@style/textView_title_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true" >
+
+                    <TextView
+                        android:id="@+id/txt_user_name_drawer"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/app_name"
+                        android:textAllCaps="true"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/txt_user_lastname_drawer"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txt_user_name_drawer"
+                        android:text="@string/app_name"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/viewSeparator"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/blue_dark" />
+
+        <ListView
+            android:id="@+id/listDrawer"
+            android:layout_width="260dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="@color/navigation_items"
+            android:cacheColorHint="@color/transparent"
+            android:choiceMode="singleChoice"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="1dp" />
+    </LinearLayout>
+</RelativeLayout>

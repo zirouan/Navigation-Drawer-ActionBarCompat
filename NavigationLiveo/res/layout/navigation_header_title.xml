@@ -3,10 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="48dp"
     android:background="@color/navigation_items"
-    android:gravity="center_vertical">
+    android:gravity="center_vertical" >
 
     <TextView
         android:id="@+id/title"
+        style="?android:attr/listSeparatorTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
@@ -16,14 +17,24 @@
         android:paddingTop="10dp"
         android:singleLine="true"
         android:text=""
-        android:textColor="@color/white"/>
+        android:textColor="@color/white" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="3dp"
-        android:visibility="gone"
+        android:layout_below="@+id/title"
         android:layout_marginBottom="1dp"
         android:layout_marginTop="1dp"
-		android:layout_below="@+id/title"	        
-        android:background="@color/gray" />
+        android:background="@color/gray"
+        android:visibility="gone" />
+
+    <View
+        android:id="@+id/viewNavigation"
+        android:layout_width="8dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:visibility="gone"
+        android:background="@color/blue_dark" />
+
 </RelativeLayout>

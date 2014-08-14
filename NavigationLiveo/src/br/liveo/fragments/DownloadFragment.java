@@ -14,20 +14,30 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
 import android.widget.TextView;
 import br.liveo.navigationliveo.R;
+import br.liveo.utils.Constant;
 import br.liveo.utils.Menus;
 
-public class FragmentDownload extends Fragment {
+public class DownloadFragment extends Fragment {
+
+	private boolean mSearchCheck;
+	private TextView mTxtDownload;
 	
-	private TextView txtFragmentDownload;
-	private boolean searchCheck;
+	public DownloadFragment newInstance(String text){
+		DownloadFragment mFragment = new DownloadFragment();		
+		Bundle mBundle = new Bundle();
+		mBundle.putString(Constant.TEXT_FRAGMENT, text);
+		mFragment.setArguments(mBundle);
+		return mFragment;
+	}
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub		
-		View rootView = inflater.inflate(R.layout.fragmentdownload, container, false);
+		View rootView = inflater.inflate(R.layout.download_fragment, container, false);
 		
-		txtFragmentDownload = (TextView) rootView.findViewById(R.id.txtFragmentDownload);
-		txtFragmentDownload.setText("This is the download fragments");
+		mTxtDownload = (TextView) rootView.findViewById(R.id.txtDownload);
+		mTxtDownload.setText(getArguments().getString(Constant.TEXT_FRAGMENT));
 		
 		rootView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT ));		
 		return rootView;		
@@ -57,7 +67,7 @@ public class FragmentDownload extends Fragment {
 		menu.findItem(Menus.UPDATE).setVisible(true);		
 		menu.findItem(Menus.SEARCH).setVisible(true);		
   	    
-		searchCheck = false;	
+		mSearchCheck = false;	
 	}	
 	
 	@Override
@@ -73,7 +83,7 @@ public class FragmentDownload extends Fragment {
 			break;				
 			
 		case Menus.SEARCH:
-			searchCheck = true;
+			mSearchCheck = true;
 			break;
 		}		
 		return true;
@@ -90,7 +100,7 @@ public class FragmentDownload extends Fragment {
 		@Override
 		public boolean onQueryTextChange(String arg0) {
 			// TODO Auto-generated method stub
-			if (searchCheck){
+			if (mSearchCheck){
 				// implement your search here
 			}
 			return false;

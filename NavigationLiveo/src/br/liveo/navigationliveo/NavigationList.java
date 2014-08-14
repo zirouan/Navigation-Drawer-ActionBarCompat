@@ -1,36 +1,47 @@
 package br.liveo.navigationliveo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Context;
-import br.liveo.adapter.NavigationAdapter;
+import android.util.SparseIntArray;
 import br.liveo.adapter.NavigationItemAdapter;
 import br.liveo.utils.Utils;
 
 public class NavigationList {
-	
-	public static NavigationAdapter getNavigationAdapter(Context context){
-		
-		NavigationAdapter navigationAdapter = new NavigationAdapter(context);		
-		String[] menuItems = context.getResources().getStringArray(R.array.nav_menu_items);		
-		for (int i = 0; i < menuItems.length; i++) {
 
-			String title = menuItems[i];				
-			if (i == 0 || i == 6 || i == 10){ //Set category navigation position 0 = menu_zero, 
-				                              //                                 6 = menu_six, 10 = menu_ten
-				navigationAdapter.addHeader(title);			
-			}else{
-			
-				NavigationItemAdapter itemNavigation;				
-				switch (i) {
-				case 1:
-					itemNavigation = new NavigationItemAdapter(title, Utils.iconNavigation[i], false, 1);														
-					break;
-				default:
-					itemNavigation = new NavigationItemAdapter(title, Utils.iconNavigation[i]);									
-					break;
-				}		
-				navigationAdapter.addItem(itemNavigation);
+	public static List<NavigationItemAdapter> getNavigationAdapter(
+			Context context, List<Integer> listItensHeader, SparseIntArray sparce, List<Integer> listItensHide) {
+
+		List<NavigationItemAdapter> mList = new ArrayList<NavigationItemAdapter>();
+		String[] mMenuItems = context.getResources().getStringArray(R.array.nav_menu_items);
+
+		int count = -1;
+		boolean isheader = false;			
+		boolean isVisible = false;
+		
+		for (int i = 0; i < mMenuItems.length; i++) {
+
+			String title = mMenuItems[i];
+			NavigationItemAdapter itemNavigation;
+
+
+			if (sparce != null) {
+				count = sparce.get(i, -1);
 			}
-		}		
-		return navigationAdapter;			
-	}	
+
+			if (listItensHeader != null) {
+				isheader = listItensHeader.contains(i);
+			}
+						
+			if (listItensHide != null) {
+				isVisible = listItensHide.contains(i);
+			}
+
+			itemNavigation = new NavigationItemAdapter(title, Utils.iconNavigation[i], isheader, count, !isVisible);
+			mList.add(itemNavigation);
+		}
+
+		return mList;
+	}
 }

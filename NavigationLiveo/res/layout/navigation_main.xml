@@ -2,7 +2,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/gray_navegation" >
-
+    
     <android.support.v4.widget.DrawerLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/layoutDrawer"
@@ -15,8 +15,8 @@
             android:layout_height="match_parent" >
         </FrameLayout>
 
-        <LinearLayout
-            android:id="@+id/linearDrawer"
+        <RelativeLayout
+            android:id="@+id/relativeDrawer"
             android:layout_width="260dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
@@ -80,7 +80,8 @@
             <View
                 android:id="@+id/viewSeparator"
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_height="2dp"       
+                android:layout_below="@+id/userContent"         
                 android:background="@color/blue_dark" />
 
             <ListView
@@ -88,12 +89,12 @@
                 android:layout_width="260dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
+                android:layout_below="@+id/viewSeparator"                
                 android:background="@color/navigation_items"
                 android:cacheColorHint="@color/transparent"
                 android:choiceMode="singleChoice"
                 android:divider="@android:color/transparent"
                 android:dividerHeight="1dp" />
-        </LinearLayout>
+        </RelativeLayout>
     </android.support.v4.widget.DrawerLayout>
-
 </RelativeLayout>
